@@ -211,8 +211,3 @@ class Logic(QMainWindow, Ui_MainWindow):
             writer = csv.writer(file1,lineterminator='')
             header = ('Customer_#', 'Cookie_QTY', 'Cookie_SUM', 'Sandwich_QTY', 'Sandwich_SUM', 'Water_QTY', 'Water_SUM', 'GRAND_TOTAL')
             writer.writerow(header)
-
-
-
-# todo list
-# line things up better
