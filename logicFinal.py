@@ -4,23 +4,28 @@ import csv
 
 class Logic(QMainWindow, Ui_MainWindow):
     def __init__(self):
+        """
+        Initializes the program, loads the UI, sets the default customer number, connects buttons and hides UI elements not needed at the start
+        """
         super().__init__()
         self.setupUi(self)
         self.log_create()
         self.cnum = 1
-
         self.shop_button.clicked.connect(lambda: self.shopsubmit())
         self.addcart_button.clicked.connect(lambda: self.cartsubmit())
         self.exit_button.clicked.connect(lambda: self.exitsubmit())
         self.pushButton.clicked.connect(lambda: self.logsubmit())
         self.check_button.clicked.connect(lambda: self.checksubmit())
         self.goback_button.clicked.connect(lambda: self.gobacksubmit())
-
         self.shop_frame.hide()
         self.scrollArea.hide()
         self.receipt.hide()
 
     def shopsubmit(self):
+        """
+        When the SHOP button is pressed, the selection options will appear and allow the user to start the buying process with a clean ui
+        :return: the UI to SHOP mode
+        """
         self.welcome_message.hide()
         self.shop_frame.show()
         self.scrollArea.hide()
@@ -38,6 +43,10 @@ class Logic(QMainWindow, Ui_MainWindow):
         self.water_radio.setChecked(False)
 
     def cartsubmit(self):
+        """
+        This button verifies that something is selected, the input is valid and then shows the customer what they will be buying before they checkout
+        :return: Cookie QTY, Cookie SUM, Sandwich QTY, Sandwich SUM, Water QTY, Water SUM, Grand Total
+        """
         # check if any radio is selected and that there a quantity in the box
         self.cookieq = self.cookie_qty.text()
         self.sandq = self.sand_qty.text()
@@ -111,6 +120,10 @@ class Logic(QMainWindow, Ui_MainWindow):
         self.addcart_button.hide()
 
     def checksubmit(self):
+        """
+        When the checkout button is pressed, a receipt is given and the log file is updated with the purchase
+        :return:
+        """
         self.shop_frame.hide()
         self.receipt.setText(f'Thank you!'
                              f'\nYou were customer number {self.cnum}'
@@ -134,6 +147,11 @@ class Logic(QMainWindow, Ui_MainWindow):
 
 
     def gobacksubmit(self):
+        """
+        The go back button activates after the cart has been created, but before the checkout button is pressed if the
+        customer does not like what they have in their cart
+        :return:
+        """
         self.addcart_button.show()
         self.cart_menu.setText('')
         # clean up
@@ -146,6 +164,10 @@ class Logic(QMainWindow, Ui_MainWindow):
         self.check_button.hide()
         self.goback_button.hide()
     def logsubmit(self):
+        """
+        The current session log can be viewed and will show line by line what is in the current sessions csv file
+        :return:
+        """
         self.shop_frame.hide()
         self.receipt.hide()
         self.scrollArea.show()
@@ -162,9 +184,17 @@ class Logic(QMainWindow, Ui_MainWindow):
 
         self.label.setText(f'{start_string}')
     def exitsubmit(self):
+        """
+        Allows the shutdown button to shutdown the program
+        :return:
+        """
         self.close()
 
     def log_create(self):
+        """
+        Creates the logs folder to store log files in, creates log files with the time/date as the name each time the program is started
+        :return: the session id used to create and access the current log file
+        """
         import os
 
         # create the logs folder
@@ -186,4 +216,3 @@ class Logic(QMainWindow, Ui_MainWindow):
 
 # todo list
 # line things up better
-# add in type hinting and descriptions for methods
