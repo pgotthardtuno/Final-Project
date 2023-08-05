@@ -17,6 +17,9 @@ class Logic(QMainWindow, Ui_MainWindow):
         self.pushButton.clicked.connect(lambda: self.logsubmit())
         self.check_button.clicked.connect(lambda: self.checksubmit())
         self.goback_button.clicked.connect(lambda: self.gobacksubmit())
+        self.cookie_radio.clicked.connect(lambda: self.cookiesubmit())
+        self.sand_radio.clicked.connect(lambda: self.sandsubmit())
+        self.water_radio.clicked.connect(lambda: self.watersubmit())
         self.shop_frame.hide()
         self.scrollArea.hide()
         self.receipt.hide()
@@ -41,6 +44,9 @@ class Logic(QMainWindow, Ui_MainWindow):
         self.cookie_radio.setChecked(False)
         self.sand_radio.setChecked(False)
         self.water_radio.setChecked(False)
+        self.cookie_qty.hide()
+        self.sand_qty.hide()
+        self.water_qty.hide()
 
     def cartsubmit(self):
         """
@@ -158,6 +164,9 @@ class Logic(QMainWindow, Ui_MainWindow):
         self.cookie_qty.setText('')
         self.sand_qty.setText('')
         self.water_qty.setText('')
+        self.cookie_qty.hide()
+        self.sand_qty.hide()
+        self.water_qty.hide()
         self.cookie_radio.setChecked(False)
         self.sand_radio.setChecked(False)
         self.water_radio.setChecked(False)
@@ -211,3 +220,39 @@ class Logic(QMainWindow, Ui_MainWindow):
             writer = csv.writer(file1,lineterminator='')
             header = ('Customer_#', 'Cookie_QTY', 'Cookie_SUM', 'Sandwich_QTY', 'Sandwich_SUM', 'Water_QTY', 'Water_SUM', 'GRAND_TOTAL')
             writer.writerow(header)
+
+    def cookiesubmit(self):
+        '''
+        This function shows or hides the enter quantity box when the cookie is selected/not selected.
+        :return:
+        '''
+        if self.cookie_radio.isChecked():
+            self.cookie_qty.setText('')
+            self.cookie_qty.show()
+        else:
+            self.cookie_qty.hide()
+            self.cookie_qty.setText('')
+
+    def sandsubmit(self):
+        '''
+        This function shows or hides the enter quantity box when the sandwich is selected/not selected.
+        :return:
+        '''
+        if self.sand_radio.isChecked():
+            self.sand_qty.setText('')
+            self.sand_qty.show()
+        else:
+            self.sand_qty.hide()
+            self.sand_qty.setText('')
+
+    def watersubmit(self):
+        '''
+        This function shows or hides the enter quantity box when the water is selected/not selected.
+        :return:
+        '''
+        if self.water_radio.isChecked():
+            self.water_qty.setText('')
+            self.water_qty.show()
+        else:
+            self.water_qty.hide()
+            self.water_qty.setText('')
